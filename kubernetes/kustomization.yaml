@@ -1,0 +1,7 @@
+bases:
+- ./backend
+- ./frontend
+- ./gateway
+- ./group
+- ./mysql
+- ./redis
