@@ -16,3 +16,12 @@ spec:
         image: pongpong41/noomnim-chat-frontend
         ports:
         - containerPort: 80
+      tolerations:
+      - key: node.kubernetes.io/unreachable
+        operator: Exists
+        effect: NoExecute
+        tolerationSeconds: 10
+      - key: node.kubernetes.io/not-ready
+        operator: Exists
+        effect: NoExecute
+        tolerationSeconds: 10
