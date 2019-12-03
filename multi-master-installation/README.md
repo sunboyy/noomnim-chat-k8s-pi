@@ -5,6 +5,7 @@ This section contain installation guide for setting up multi master kubernetes c
 ## Prerequisites
 
 In case that etcd has already been installed in the master, please remove it by running
+
 ```
 $ sudo rm -rf /etc/etcd
 $ sudo rm -rf /var/lib/etcd

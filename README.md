@@ -1,6 +1,29 @@
 # Noomnim Chat Kubernetes on Raspberry Pi
 
-## Raspberry Pi configuration
+## Ubuntu Virtual Machine initial configuration (Master node)
+
+1. Setup static IP address on the machine
+2. Run the following script install Docker daemon and Kubeadm
+
+```sh
+sudo apt-get update
+
+sudo apt-get install -y vim apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
+
+sudo swapoff --all
+sudo sed -i '$ d' /etc/fstab
+
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -qy kubeadm
+```
+
+## Raspberry Pi initial configuration (Worker node)
 
 1. Flash Raspberry Pi with Raspbian Stretch [Download](http://downloads.raspberrypi.org/raspbian/images/raspbian-2018-11-15/2018-11-13-raspbian-stretch.zip)
 2. Run the script below to set static IP address to the Pi. Change IP address and router address depend on your preferences.
@@ -48,6 +71,10 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt-get update
 sudo apt-get install -qy kubeadm
 ```
+
+## Initialize the Kubernetes cluster
+
+Click [here](https://github.com/sunboyy/noomnim-chat-k8s-pi/tree/master/multi-master-installation) to see the steps to create high availability kubernetes cluster with HAProxy load balancer.
 
 ## Deploying the application
 
